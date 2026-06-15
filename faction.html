@@ -1,186 +1,27 @@
-<!DOCTYPE html>
-<html lang="uk">
-<head>
-  <meta charset="UTF-8">
-  <title>Фракція</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
+html += 
 
-<div class="bg"></div>
+  <div style="margin:10px;padding:10px;background:rgba(255,255,255,0.1);color:white;border-radius:10px;">
 
-<div class="panel">
+    <p><b>Гравець:</b> ${a.user}</p>
 
-  <h1 id="title"></h1>
+    <p><b>Фракція:</b> ${a.faction}</p>
 
-  <h3>Учасники:</h3>
+    <p><b>Анкета:</b> ${a.text}</p>
 
-  <div id="members"></div>
+    <button onclick="accept(${i})">✔ Прийняти</button>
 
-  <button onclick="sendApplication()">ПОДАТИ АНКЕТУ</button>
-  <button onclick="location.href='factions.html'">Назад</button>
+    <button onclick="reject(${i})">✖ Відхилити</button>
 
-</div>
+    <button onclick="makeLeader('${a.faction}','${a.user}')">html += 
+  <div style="margin:10px;padding:10px;background:rgba(255,255,255,0.1);color:white;border-radius:10px;">
+    <p><b>Гравець:</b> ${a.user}</p>
+    <p><b>Фракція:</b> ${a.faction}</p>
+    <p><b>Анкета:</b> ${a.text}</p>
 
-<script>
-let faction = localStorage.getItem("faction");
-
-let leader = localStorage.getItem("leader_" + faction);
-
-let leaderText = leader
-  ? "👑 Лідер: " + leader
-  : "👑 Лідера немає";
-
-document.getElementById("title").innerHTML =
-faction + "<br><small>" + leaderText + "</small>";
-
-// отримати учасників
-let members = JSON.parse(localStorage.getItem("faction_" + faction) || "[]");
-
-let html = "";
-
-if(members.length === 0){
-  html = "<p>Нема учасників</p>";
-} else {
-  members.forEach(m => {
-    html += "<p>👤 " + m + "</p>";
-  });
-}
-
-document.getElementById("members").innerHTML = html;
-
-// заявка
-function sendApplication(){
-
-  let user = localStorage.getItem("currentUser");
-
-  if(!user){
-    alert("Спочатку увійди");
-    return;
-  }
-
-  let apps = JSON.parse(localStorage.getItem("apps") || "[]");
-
-  apps.push({
-    user: user,
-    faction: faction,
-    status: "pending"
-  });
-
-  localStorage.setItem("apps", JSON.stringify(apps));
-
-  alert("Заявку відправлено!");
-}
-</script>
-
-</body>
-</html>
-
-function sendApplication(){
-
-  let user = localStorage.getItem("currentUser");
-  let faction = localStorage.getItem("faction");
-
-  if(!user){
-    alert("Спочатку увійди");
-    return;
-  }
-
-  // 👇 ТУТ ТИ САМ ПОТІМ ВСТАВИШ СВІЙ ТЕКСТ АНКЕТИ
-  let text = prompt("🇺🇦АНКЕТА НА ВСТУП ДО НПУ🇺🇦
-
-😳Вимоги:
-— Від 13 років
-— Мати войс чат
-— Мати бажання працювати у фракціі
-— Слухатися та тримати дисципліну
-
-🫡Анкета:
-
-Юзернейм рб:
-
-Юз тг:
-
-Чому саме ви:
-
-Ваше знання рп от 1 до 10:
-
-Чи маєте ви досвід якщо так на якому сервері:
-
-Скільки годин ви можете грати в день:
-
-Готові ходити на тренування та сбори:
-
-Підпис:
-Бажаю вам успіхів!😇");
-
-
-  let text = prompt("🛡️🇺🇦 ЗАЯВА НА ВСТУП ДО СБУ 🇺🇦🛡️
-
-👤 Нік у Roblox: ___
-
-🆔️ Юз тг: ___
-
-🎂 Вік: ___
-
-⏰ Скільки годин граєте в Roblox: ___
-
-🎮 Досвід у військових/RP іграх:
-
----
-
-🫡 Чому хочете вступити до СБУ?
-
----
-
-💪 Ваші сильні сторони:
-✅ Дисципліна
-✅ Командна робота
-✅ Стрільба
-✅ Водіння
-✅ Інше: ___
-
-📢 Чи готові виконувати накази керівництва?
-
-☐ Так ✅
-
-☐ Ні ❌
-
-⚔️ Чи були ви в інших фракціях?
-
-☐ Так ✅
-
-☐ Ні ❌
-
-Якщо так, вкажіть яких:
-
----
-
-⭐ Оцініть свою активність (1–10): _
-
-📅 Дата подачі заявки: ___
-
-✍️ Підпис: ___
-
-ВИМОГИ❗️
-- від 13 років
-- мати войс чат
-- не порушувати правила СБУ/СЕРВЕРА
-- дотримуватись дисципліни
-
-🇺🇦 Бажаємо успіху на відборі!
-Чекаю на ваші заявки!😇");
-
-  let apps = JSON.parse(localStorage.getItem("apps") || "[]");
-
-  apps.push({
-    user: user,
-    faction: faction,
-    text: text,
-    status: "pending"
-  });
-
-  localStorage.setItem("apps", JSON.stringify(apps));
-
-  alert("Анкету відправлено!");
-}
+    <button onclick="accept(${i})">✔ Прийняти</button>
+    <button onclick="reject(${i})">✖ Відхилити</button>
+    <button onclick="makeLeader('${a.faction}','${a.user}')">
+      ⭐ Зробити лідером
+    </button>
+  </div>
+`;
