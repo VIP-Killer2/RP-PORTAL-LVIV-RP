@@ -19,44 +19,66 @@
 
 <script>
 if(localStorage.getItem("admin") !== "true"){
-  document.body.innerHTML = "<h1 style='color:white'>Нема доступу</h1>";
+  document.body.innerHTML = "<h1 style='color:white;text-align:center'>Нема доступу</h1>";
 }
 
-// показ заявок
+// отримати заявки
 let apps = JSON.parse(localStorage.getItem("apps") || "[]");
 
-let html = "";
+// показ
+function render(){
+  let html = "";
 
-apps.forEach((a, i) => {
+  apps.forEach((a, i) => {
 
-  if(a.status === "pending"){
+    if(a.status === "pending"){
 
-    html += 
-      <div style="margin:10px;padding:10px;background:rgba(255,255,255,0.1);color:white;">
-        <p>${a.user} → ${a.faction}</p>
+      html += 
+        <div style="margin:10px;padding:10px;background:rgba(255,255,255,0.1);color:white;border-radius:10px;">
+          <p><b>Гравець:</b> ${a.user}</p>
+          <p><b>Фракція:</b> ${a.faction}</p>
 
-        <button onclick="accept(${i})">Прийняти</button>
-        <button onclick="reject(${i})">Відхилити</button>
-      </div>
-    ;
-  }
+          <button onclick="accept(${i})">✔ Прийняти</button>
+          <button onclick="reject(${i})">✖ Відхилити</button>
+        </div>
+      ;
+    }
 
-});
+  });
 
-document.getElementById("list").innerHTML = html;
-
-function accept(i){
-  let apps = JSON.parse(localStorage.getItem("apps"));
-  apps[i].status = "accepted";
-  localStorage.setItem("apps", JSON.stringify(apps));
-  location.reload();
+  document.getElementById("list").innerHTML = html;
 }
 
-function reject(i){
-  let apps = JSON.parse(localStorage.getItem("apps"));
-  apps[i].status = "rejected";
+render();
+
+// ПРИЙНЯТИ
+function accept(i){
+
+  let player = apps[i].user;
+  let faction = apps[i].faction;
+
+  // додаємо у фракцію
+  let members = JSON.parse(localStorage.getItem("faction_" + faction) || "[]");
+
+  members.push(player);
+
+  localStorage.setItem("faction_" + faction, JSON.stringify(members));
+
+  apps[i].status = "accepted";
+
   localStorage.setItem("apps", JSON.stringify(apps));
-  location.reload();
+
+  render();
+}
+
+// ВІДХИЛИТИ
+function reject(i){
+
+  apps[i].status = "rejected";
+
+  localStorage.setItem("apps", JSON.stringify(apps));
+
+  render();
 }
 </script>
 
