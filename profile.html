@@ -1,1 +1,26 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Профіль</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
+<div class="bg"></div>
+
+<div class="panel">
+  <h1>ПРОФІЛЬ</h1>
+
+  <h2 id="nick"></h2>
+
+  <button onclick="location.href='index.html'">Назад</button>
+</div>
+
+<script>
+  document.getElementById("nick").innerText =
+    "Нік: " + localStorage.getItem("currentUser");
+</script>
+
+</body>
+</html>
