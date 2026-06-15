@@ -24,7 +24,15 @@
 
 <script>
 let faction = localStorage.getItem("faction");
-document.getElementById("title").innerText = faction;
+
+let leader = localStorage.getItem("leader_" + faction);
+
+let leaderText = leader
+  ? "👑 Лідер: " + leader
+  : "👑 Лідера немає";
+
+document.getElementById("title").innerHTML =
+faction + "<br><small>" + leaderText + "</small>";
 
 // отримати учасників
 let members = JSON.parse(localStorage.getItem("faction_" + faction) || "[]");
