@@ -1,1 +1,39 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Фракція</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
+<div class="bg"></div>
+
+<div class="panel">
+
+  <h1 id="title"></h1>
+
+  <h3>Учасники:</h3>
+
+  <ul>
+    <li>Player_1</li>
+    <li>Player_2</li>
+    <li>Player_3</li>
+  </ul>
+
+  <button onclick="apply()">ПОДАТИ АНКЕТУ</button>
+  <button onclick="location.href='factions.html'">Назад</button>
+
+</div>
+
+<script>
+  let f = localStorage.getItem("faction");
+  document.getElementById("title").innerText = f;
+
+  function apply(){
+    alert("Анкету відправлено у " + f);
+  }
+</script>
+
+</body>
+</html>
