@@ -55,3 +55,17 @@ function openFactionPage(name){
   localStorage.setItem("faction", name);
   window.location.href = "faction.html";
 }
+let isAdmin = localStorage.getItem("admin") === "true";
+
+// ВВІД КОДУ АДМІНА
+function enterAdminCode(){
+  let code = prompt("Введи адмін код:");
+
+  if(code === "EH.RP"){
+    localStorage.setItem("admin", "true");
+    isAdmin = true;
+    alert("Ти став АДМІНОМ!");
+  } else {
+    alert("Невірний код");
+  }
+}
