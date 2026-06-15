@@ -15,27 +15,54 @@
 
   <h3>Учасники:</h3>
 
-  <ul>
-    <li>Player_1</li>
-    <li>Player_2</li>
-    <li>Player_3</li>
-  </ul>
+  <div id="members"></div>
 
-  <button onclick="apply()">ПОДАТИ АНКЕТУ</button>
+  <button onclick="sendApplication()">ПОДАТИ АНКЕТУ</button>
   <button onclick="location.href='factions.html'">Назад</button>
-  <button onclick="sendApplication('Поліція')">
-ПОДАТИ АНКЕТУ
-</button>
 
 </div>
 
 <script>
-  let f = localStorage.getItem("faction");
-  document.getElementById("title").innerText = f;
+let faction = localStorage.getItem("faction");
+document.getElementById("title").innerText = faction;
 
-  function apply(){
-    alert("Анкету відправлено у " + f);
+// отримати учасників
+let members = JSON.parse(localStorage.getItem("faction_" + faction) || "[]");
+
+let html = "";
+
+if(members.length === 0){
+  html = "<p>Нема учасників</p>";
+} else {
+  members.forEach(m => {
+    html += "<p>👤 " + m + "</p>";
+  });
+}
+
+document.getElementById("members").innerHTML = html;
+
+// заявка
+function sendApplication(){
+
+  let user = localStorage.getItem("currentUser");
+
+  if(!user){
+    alert("Спочатку увійди");
+    return;
   }
+
+  let apps = JSON.parse(localStorage.getItem("apps") || "[]");
+
+  apps.push({
+    user: user,
+    faction: faction,
+    status: "pending"
+  });
+
+  localStorage.setItem("apps", JSON.stringify(apps));
+
+  alert("Заявку відправлено!");
+}
 </script>
 
 </body>
