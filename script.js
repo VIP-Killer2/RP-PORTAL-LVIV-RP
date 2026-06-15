@@ -1,18 +1,18 @@
-let user = null;
+let user = localStorage.getItem("currentUser");
 
 function openRegister(){
-  let nick = prompt("Введи нік");
+  let nick = prompt("Нік");
   let pass = prompt("Пароль (мін 6 символів)");
 
   if(pass.length < 6){
-    alert("Пароль занадто короткий!");
+    alert("Пароль має бути 6+ символів");
     return;
   }
 
   localStorage.setItem("nick", nick);
   localStorage.setItem("pass", pass);
 
-  alert("Реєстрація успішна!");
+  alert("Реєстрація успішна");
 }
 
 function openLogin(){
@@ -22,19 +22,24 @@ function openLogin(){
   if(nick === localStorage.getItem("nick") &&
      pass === localStorage.getItem("pass")){
 
+    localStorage.setItem("currentUser", nick);
     user = nick;
-    alert("Вхід успішний!");
+
+    alert("Вхід успішний");
   } else {
-    alert("Невірні дані!");
+    alert("Невірні дані");
   }
 }
 
 function openProfile(){
-  if(!user){
-    alert("Спочатку увійди!");
+  let u = localStorage.getItem("currentUser");
+
+  if(!u){
+    alert("Спочатку увійди");
     return;
   }
-  alert("Твій нік: " + user);
+
+  window.location.href = "profile.html";
 }
 
 function openRules(){
@@ -42,5 +47,11 @@ function openRules(){
 }
 
 function openFactions(){
-  alert("Фракції будуть у наступній частині!");
+  window.location.href = "factions.html";
+}
+
+// ФРАКЦІЯ
+function openFactionPage(name){
+  localStorage.setItem("faction", name);
+  window.location.href = "faction.html";
 }
