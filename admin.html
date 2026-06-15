@@ -115,3 +115,10 @@ function render(){
 
   document.getElementById("list").innerHTML = html;
 }
+
+function makeLeader(faction, user){
+
+  localStorage.setItem("leader_" + faction, user);
+
+  alert(user + " тепер лідер фракції " + faction);
+}
