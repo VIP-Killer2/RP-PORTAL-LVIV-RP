@@ -69,3 +69,24 @@ function enterAdminCode(){
     alert("Невірний код");
   }
 }
+function sendApplication(faction){
+
+  let user = localStorage.getItem("currentUser");
+
+  if(!user){
+    alert("Спочатку увійди");
+    return;
+  }
+
+  let apps = JSON.parse(localStorage.getItem("apps") || "[]");
+
+  apps.push({
+    user: user,
+    faction: faction,
+    status: "pending"
+  });
+
+  localStorage.setItem("apps", JSON.stringify(apps));
+
+  alert("Заявку відправлено!");
+}
