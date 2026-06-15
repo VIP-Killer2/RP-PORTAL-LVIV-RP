@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Адмін панель</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="bg"></div>
+
+<div class="panel">
+
+  <h1>АДМІН ПАНЕЛЬ</h1>
+
+  <div id="list"></div>
+
+</div>
+
+<script>
+if(localStorage.getItem("admin") !== "true"){
+  document.body.innerHTML = "<h1 style='color:white'>Нема доступу</h1>";
+}
+
+// показ заявок
+let apps = JSON.parse(localStorage.getItem("apps") || "[]");
+
+let html = "";
+
+apps.forEach((a, i) => {
+
+  if(a.status === "pending"){
+
+    html += 
+      <div style="margin:10px;padding:10px;background:rgba(255,255,255,0.1);color:white;">
+        <p>${a.user} → ${a.faction}</p>
+
+        <button onclick="accept(${i})">Прийняти</button>
+        <button onclick="reject(${i})">Відхилити</button>
+      </div>
+    ;
+  }
+
+});
+
+document.getElementById("list").innerHTML = html;
+
+function accept(i){
+  let apps = JSON.parse(localStorage.getItem("apps"));
+  apps[i].status = "accepted";
+  localStorage.setItem("apps", JSON.stringify(apps));
+  location.reload();
+}
+
+function reject(i){
+  let apps = JSON.parse(localStorage.getItem("apps"));
+  apps[i].status = "rejected";
+  localStorage.setItem("apps", JSON.stringify(apps));
+  location.reload();
+}
+</script>
+
+</body>
+</html>
