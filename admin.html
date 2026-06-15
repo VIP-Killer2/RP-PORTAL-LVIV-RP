@@ -84,3 +84,34 @@ function reject(i){
 
 </body>
 </html>
+function render(){
+
+  let apps = JSON.parse(localStorage.getItem("apps") || "[]");
+  let html = "";
+
+  apps.forEach((a, i) => {
+
+    if(a.status === "pending"){
+
+      html += 
+        <div style="margin:10px;padding:10px;background:rgba(255,255,255,0.1);color:white;border-radius:10px;">
+
+          <p><b>Гравець:</b> ${a.user}</p>
+          <p><b>Фракція:</b> ${a.faction}</p>
+
+          <p><b>Анкета:</b> ${a.text}</p>
+
+          <button onclick="accept(${i})">✔ Прийняти</button>
+          <button onclick="reject(${i})">✖ Відхилити</button>
+          <button onclick="makeLeader('${a.faction}','${a.user}')">
+            ⭐ Зробити лідером
+          </button>
+
+        </div>
+      ;
+    }
+
+  });
+
+  document.getElementById("list").innerHTML = html;
+}
