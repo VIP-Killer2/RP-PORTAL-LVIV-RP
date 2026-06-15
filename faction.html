@@ -67,3 +67,30 @@ function sendApplication(){
 
 </body>
 </html>
+
+function sendApplication(){
+
+  let user = localStorage.getItem("currentUser");
+  let faction = localStorage.getItem("faction");
+
+  if(!user){
+    alert("Спочатку увійди");
+    return;
+  }
+
+  // 👇 ТУТ ТИ САМ ПОТІМ ВСТАВИШ СВІЙ ТЕКСТ АНКЕТИ
+  let text = prompt("Введи свою анкету (текст)");
+
+  let apps = JSON.parse(localStorage.getItem("apps") || "[]");
+
+  apps.push({
+    user: user,
+    faction: faction,
+    text: text,
+    status: "pending"
+  });
+
+  localStorage.setItem("apps", JSON.stringify(apps));
+
+  alert("Анкету відправлено!");
+}
